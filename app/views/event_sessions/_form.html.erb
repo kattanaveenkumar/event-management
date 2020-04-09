@@ -1,0 +1,37 @@
+<%= form_for @event_session, url: @event_session.new_record? ? event_event_sessions_path(@event) : event_event_session_path(@event), html: {class: "form-horizontal"} do |f| %>
+<% if @event_session.errors.any? %>
+<div class="alert alert-danger">
+	<h3>These errors prohibited the form from being created:</h3>
+	<ul>
+		<% @event_session.errors.full_messages.each do |msg| %>
+		<li><%= msg%></li>
+		<% end %>
+	</ul>			
+</div>	
+<% end %>
+
+<div class="form-group">
+	<%= f.label :name %>*
+	<%= f.text_field :name, class: "form-control" %>		
+</div>
+<div class="form-group">
+	<%= f.label :description %>
+	<%= f.text_area :description, class: "form-control" %> 		
+</div>
+<div class="form-group">
+		<%= f.label "Starting at" %>*
+	<%= f.text_field :start_datetime, id: "startDatetime", class: "form-control" %> 
+	</div>
+
+	<div class="form-group">
+		<%= f.label "Ending at" %>*
+	<%= f.text_field :end_datetime, id: "endDatetime", class: "form-control" %> 
+	</div>
+
+	<div class="form-group">
+		<%= f.label "Host" %>*
+		<%= f.select :host_id, options_for_select(User.hosts), {prompt: "Please select"}, class: "form-control"%>
+	</div>
+	<%= f.submit "Submit", class: "btn btn-success"%>
+
+<% end %>

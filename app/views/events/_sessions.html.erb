@@ -1,0 +1,51 @@
+<h2>Sessions</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <% if (can? :update, EventSession.new) || (can? :create, SessionBooking.new) || (can? :view_attendees, EventSession.new)%>
+      <th>Actions</th>
+      <% end %>  
+    </tr>
+  </thead>
+  <tbody>
+    <% @event_sessions.each_with_index do |session, i| %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= session.name %></td>
+      <td><%= session.description %></td>
+      <td><%= session.start_datetime.to_time.strftime('%B %e at %l:%M %p') %></td>
+      <td><%= session.end_datetime.to_time.strftime('%B %e at %l:%M %p') %></td>
+      <% if (can? :update, EventSession.new) || (can? :create, SessionBooking.new) || (can? :view_attendees, EventSession.new)%>
+      <td>
+        <p>
+        <% if can? :update, EventSession.new %>
+          <%= link_to edit_event_event_session_path(@event.id, session.id) do %>
+             <i class="fa fa-pencil"></i>
+              <%end%>
+              <%= link_to event_event_session_path(@event.id, session.id), method: :delete, class: "ml-2" do %>
+             <i class="fa fa-trash"></i>
+              <%end%>
+        <%end%>
+        <% if can? :view_attendees, EventSession.new %>
+        <%= link_to event_event_session_view_attendees_path(@event.id, session.id), class: "ml-2", remote: true do %>
+             <i class="fa fa-eye"></i>
+              <%end%>
+        <% end %>
+        <% if can? :create, SessionBooking.new %>
+        <%= form_for([@event,session, @session_booking]) do |f|  %>
+        <%= f.submit "Enroll" , class: "btn btn-danger", disabled: session.is_enrolled?(current_user)%>
+        <% end %>
+        <% end %>	
+        </p>
+        
+      </td>
+      <% end %>	
+    </tr>
+    <%end %>
+  </tbody>
+</table>

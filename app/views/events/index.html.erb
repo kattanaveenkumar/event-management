@@ -1,0 +1,48 @@
+<div class="card bg-light text-dark mt-2">
+  <div class="card-body text-center">
+    <% if can? :create, Event.new %>
+    <h3><%= link_to "Click here", new_event_path %>  to create an Event!</h3>
+    <% end %>
+  </div>
+</div>
+<div class="row mt-2 p-0">
+  <% @events.each do |event|%>
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="card">
+      <%= link_to image_tag(event.image.url, height: "150px", width: "100%"), event_path(event) %>
+      <div class="card-padding">
+        <!-- Event Header -->
+        <div class="row m-2">
+          <h5 class="text-center"><%= link_to "#{event.name}", event_path(event) %></h5>
+        </div>
+        <!-- Event Control Panel -->
+        <div class="row p-0">
+          <div class="col-md-8">
+            <p class="ml-2 text-primary">Entry fee: <%= event.entry_fee %></p>
+          </div>
+          <div class="col-md-4">
+            <p class="text-center">
+              <% if can? :update, event %>
+              <%= link_to edit_event_path(event) do %>
+             <i class="fa fa-pencil"></i>
+              <%end%>
+              <%= link_to event_path(event), method: :delete, class: "ml-2", data: {confirm: "Are you sure?"} do %>
+              <span class="fa fa-trash"></span>
+              <%end%>	
+              <% end %>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 ">
+            <p class="m-2 well well-sm"> <small><%= event.end_datetime.strftime("%d %b %Y") %></small></p>
+          </div>
+          <div class="col-sm-6 col-md-6" style="margin-top:2px">
+            <p class="text-center"><a href="/events/<%= "#{event.id}" %>" class="btn btn-danger" role="button" style="border: none; color: white;">View Event</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%end%>
+</div>

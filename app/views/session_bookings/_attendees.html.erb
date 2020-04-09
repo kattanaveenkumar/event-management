@@ -1,0 +1,30 @@
+	<div class="row">
+		<div class=" ">
+			<% if can? :read, SessionBooking.new %>
+			<h3>My Sessions</h3>
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @session_bookings.each_with_index do |session, i| %>
+					<tr>
+						<td><%= i+1 %></td>
+						<td><%= session.event_session.name %></td>
+						<td><%= session.event_session.description %></td>
+						<td><%= session.event_session.start_datetime.to_time.strftime('%B %e at %l:%M %p') %></td>
+						<td><%= session.event_session.end_datetime.to_time.strftime('%B %e at %l:%M %p') %></td>
+					</tr>
+					<%end %>
+				</tbody>
+			</table>
+			<% end %>
+		</div>
+	</div>
