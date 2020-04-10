@@ -21,7 +21,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'faker'
 gem 'bootstrap4-datetime-picker-rails'
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 5.2.0"
 gem "font-awesome-rails"
 
 # Use CoffeeScript for .coffee assets and views
