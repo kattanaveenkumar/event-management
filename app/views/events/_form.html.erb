@@ -28,6 +28,11 @@
 	</div>
 
 	<div class="form-group">
+		<%= f.label :address %>*
+	<%= f.text_area :address, class: "form-control" %> 		
+	</div>
+
+	<div class="form-group">
 		<%= f.label "Starting at" %>*
 	<%= f.text_field :start_datetime, id: "startDatetime", class: "form-control" %> 
 	</div>

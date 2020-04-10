@@ -1,10 +1,10 @@
-<div class="card bg-light text-dark mt-2">
-  <div class="card-body text-center">
-    <% if can? :create, Event.new %>
-    <h3><%= link_to "Click here", new_event_path %>  to create an Event!</h3>
-    <% end %>
+<% if can? :create, EventSession.new %>
+  <div class="card bg-light text-dark mt-2">
+    <div class="card-body text-center">
+      <h3><%= link_to "Click here", new_event_path %>  to create an Event!</h3>
+    </div>
   </div>
-</div>
+<% end %>
 <div class="row mt-2 p-0">
   <% @events.each do |event|%>
   <div class="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-4">
             <p class="text-center">
-              <% if can? :update, event %>
+              <% if can? :create, EventSession.new %>
               <%= link_to edit_event_path(event) do %>
              <i class="fa fa-pencil"></i>
               <%end%>
